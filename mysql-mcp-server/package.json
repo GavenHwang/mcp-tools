@@ -1,0 +1,15 @@
+{
+  "name": "mysql-mcp-server",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "mysql2": "^3.9.7",
+    "zod": "^3.22.4",
+    "dotenv": "^16.4.5"
+  }
+}
+
