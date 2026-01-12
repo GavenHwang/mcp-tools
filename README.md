@@ -46,10 +46,32 @@ AUDIT_LOG_DIR=./logs
 ```json
 {
   "mcpServers": {
-    "mysql": {
+    "mysql-mcp-server": {
+      "command": "node",
+      "args": ["/path/to/mysql-mcp-server/index.js"]
+    }
+  }
+}
+```
+
+可通过 `env` 配置环境变量，不配置则默认使用代码目录下的 `.env` 文件：
+```json
+{
+  "mcpServers": {
+    "mysql-mcp-server": {
       "command": "node",
       "args": ["/path/to/mysql-mcp-server/index.js"],
-      "cwd": "/path/to/mysql-mcp-server"
+      "env": {
+        "DB_HOST": "localhost",
+        "DB_PORT": "3306",
+        "DB_USER": "root",
+        "DB_PASSWORD": "your_password",
+        "DB_NAME": "your_database",
+        "ALLOWED_TABLES": "*",
+        "FORBIDDEN_OPS": "drop,truncate",
+        "DANGEROUS_OPS": "delete,update",
+        "AUDIT_LOG_DIR": "/path/to/logs"
+      }
     }
   }
 }
