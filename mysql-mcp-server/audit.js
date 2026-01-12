@@ -1,7 +1,14 @@
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
-const logDir = process.env.AUDIT_LOG_DIR || "";
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const rawLogDir = process.env.AUDIT_LOG_DIR || "";
+// 相对路径基于代码目录解析
+const logDir = rawLogDir && !path.isAbsolute(rawLogDir) 
+  ? path.resolve(__dirname, rawLogDir) 
+  : rawLogDir;
 
 function ensureDir(dir) {
   if (!fs.existsSync(dir)) {
