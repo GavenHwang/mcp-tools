@@ -1,5 +1,13 @@
 import mysql from "mysql2/promise";
-import "dotenv/config";
+import dotenv from "dotenv";
+import { existsSync } from "fs";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+
+// 优先 cwd，fallback 到代码目录
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const envPath = existsSync(".env") ? ".env" : join(__dirname, ".env");
+dotenv.config({ path: envPath });
 
 // 环境变量校验
 const required = ['DB_HOST', 'DB_USER', 'DB_PASSWORD', 'DB_NAME'];
