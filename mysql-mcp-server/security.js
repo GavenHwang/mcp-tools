@@ -1,11 +1,15 @@
 // 可通过 .env 配置，逗号分隔，默认 drop,truncate,alter
-const forbiddenOps = (process.env.FORBIDDEN_OPS || "drop,truncate,alter").split(",").filter(Boolean);
+const forbiddenOpsEnv = process.env.FORBIDDEN_OPS;
+const forbiddenOps = (forbiddenOpsEnv === undefined ? "drop,truncate,alter" : forbiddenOpsEnv).split(",").filter(Boolean);
+console.error("[DEBUG] FORBIDDEN_OPS env:", forbiddenOpsEnv, "→ parsed:", forbiddenOps);
 const forbidden = forbiddenOps.length > 0 
   ? new RegExp(`\\b(${forbiddenOps.join("|")})\\b`, "i") 
   : null;
 
 // 可通过 .env 配置，逗号分隔，默认 delete,update；设为空则跳过确认
-const dangerousOps = (process.env.DANGEROUS_OPS ?? "delete,update").split(",").filter(Boolean);
+const dangerousOpsEnv = process.env.DANGEROUS_OPS;
+const dangerousOps = (dangerousOpsEnv === undefined ? "delete,update" : dangerousOpsEnv).split(",").filter(Boolean);
+console.error("[DEBUG] DANGEROUS_OPS env:", dangerousOpsEnv, "→ parsed:", dangerousOps);
 const dangerous = dangerousOps.length > 0 
   ? new RegExp(`\\b(${dangerousOps.join("|")})\\b`, "i") 
   : null;
