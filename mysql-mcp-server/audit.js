@@ -10,6 +10,10 @@ const logDir = rawLogDir && !path.isAbsolute(rawLogDir)
   ? path.resolve(__dirname, rawLogDir) 
   : rawLogDir;
 
+console.error("[AUDIT DEBUG] __dirname:", __dirname);
+console.error("[AUDIT DEBUG] rawLogDir:", rawLogDir);
+console.error("[AUDIT DEBUG] resolved logDir:", logDir);
+
 function ensureDir(dir) {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
@@ -17,7 +21,8 @@ function ensureDir(dir) {
 }
 
 function getLogFile(sql) {
-  const isQuery = /^\s*select\b/i.test(sql);
+  // 判断是否为只读查询操作
+  const isQuery = /^\s*(select|show|describe|desc|explain|help)\b/i.test(sql);
   const date = new Date().toISOString().slice(0, 10);
   return isQuery ? `query-${date}.log` : `mutation-${date}.log`;
 }
