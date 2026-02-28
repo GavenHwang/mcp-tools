@@ -10,7 +10,7 @@
 
 ## 配置说明
 
-1. 复制 `.env` 文件并配置你的禅道信息：
+1. 在当前目录下新建 `.env` 文件并配置你的禅道信息：
 
 ```bash
 ZENTAO_BASE_URL=http://hpczentao.sugon.com
