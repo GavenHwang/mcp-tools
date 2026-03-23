@@ -10,7 +10,7 @@
 
 ## 配置说明
 
-1. 在当前目录下新建 `.env` 文件并配置你的禅道信息：
+1. 在当前目录（./zentao-mcp-server）下新建 `.env` 文件并配置你的禅道信息：
 
 ```bash
 ZENTAO_BASE_URL=http://hpczentao.sugon.com
@@ -28,7 +28,9 @@ pnpm install
 
 ### 在 MCP 客户端中配置
 
-在你的 MCP 客户端配置文件中添加：
+#### 方式一：使用 `.env` 文件（推荐）
+
+按照上面的说明创建 `.env` 文件，然后在 MCP 客户端配置中添加：
 
 ```json
 {
@@ -36,6 +38,26 @@ pnpm install
     "zentao-mcp-server": {
       "command": "node",
       "args": ["/Users/gavenhwang/Documents/Code/QoderProjects/mcp-tools/zentao-mcp-server/index.js"]
+    }
+  }
+}
+```
+
+#### 方式二：直接在配置中设置环境变量
+
+如果不想使用 `.env` 文件，可以直接在 MCP 客户端配置中通过 `env` 字段设置环境变量：
+
+```json
+{
+  "mcpServers": {
+    "zentao-mcp-server": {
+      "command": "node",
+      "args": ["/Users/gavenhwang/Documents/Code/QoderProjects/mcp-tools/zentao-mcp-server/index.js"],
+      "env": {
+        "ZENTAO_BASE_URL": "http://hpczentao.sugon.com",
+        "ZENTAO_USERNAME": "你的用户名",
+        "ZENTAO_PASSWORD": "你的密码"
+      }
     }
   }
 }
